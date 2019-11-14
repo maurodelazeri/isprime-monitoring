@@ -1,5 +1,11 @@
 [{
   "targets": [
     "www.littlethings.com"
-  ]
+  ],
+  "labels": {
+    "cid": "11191",
+    "name": "littlethings",
+    "level": "elite",
+    "type": "managed"
+  }
 }]

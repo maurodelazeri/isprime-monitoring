@@ -1,5 +1,11 @@
 [{
   "targets": [
     "www.isprime.com"
-  ]
+  ],
+  "labels": {
+    "cid": "99999",
+    "name": "isprime",
+    "level": "elite",
+    "type": "internal"
+  }
 }]

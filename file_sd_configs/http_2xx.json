@@ -1,7 +1,11 @@
-[
-  {
-    "targets": [
-      "www.unicardtech.ru"
-    ]
+[{
+  "targets": [
+    "www.unicardtech.ru"
+  ],
+  "labels": {
+    "cid": "7852",
+    "name": "russioancompany",
+    "level": "elite",
+    "type": "unmanaged"
   }
-]
+}]

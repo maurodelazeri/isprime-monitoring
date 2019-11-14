@@ -25,18 +25,6 @@ scrape_configs:
       - files:
           - file_sd_configs/node.json
 
-  - job_name: blackbox
-    file_sd_configs:
-      - files:
-          - file_sd_configs/blackbox.json
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        replacement: 68.169.111.164:9115
-
   - job_name: icmp_test
     metrics_path: /probe
     params:
