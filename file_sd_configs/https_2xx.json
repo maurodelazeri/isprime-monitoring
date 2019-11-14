@@ -1,11 +1,23 @@
 [{
-  "targets": [
-    "https://www.isprime.com"
-  ],
-  "labels": {
-    "cid": "99999",
-    "name": "isprime",
-    "level": "elite",
-    "type": "internal"
+    "targets": [
+      "https://www.isprime.com"
+    ],
+    "labels": {
+      "cid": "99999",
+      "name": "isprime",
+      "level": "elite",
+      "type": "internal"
+    }
+  },
+  {
+    "targets": [
+      "https://www.vikiporn.com"
+    ],
+    "labels": {
+      "cid": "12070",
+      "name": " jonsiwebmedia",
+      "level": "elite",
+      "type": "managed"
+    }
   }
-}]
+]
