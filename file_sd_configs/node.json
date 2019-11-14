@@ -1,6 +1,6 @@
 [{
     "targets": [
-      "68.169.111.162:9100"
+      "68.169.111.162:9100", "blackbox.isprime.com:9100", "alertmanager.isprime.com:9100", "grafana.isprime.com:9100"
     ],
     "labels": {
       "cid": "99999",
