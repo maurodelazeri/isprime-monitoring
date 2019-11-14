@@ -1,0 +1,108 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+alerting:
+  alertmanagers:
+    - file_sd_configs:
+        - files:
+            - file_sd_configs/alertmanagers.json
+
+rule_files:
+  - records/rules.yml
+  - alerts/blackbox.yml
+  # - alerts/cadvisor.yml
+  # - alerts/kafka.yml
+  - alerts/node.yml
+  - alerts/prometheus.yml
+
+scrape_configs:
+  - job_name: prometheus
+    file_sd_configs:
+      - files:
+          - file_sd_configs/prometheus.json
+
+  # - job_name: kafka
+  #   metrics_path: /
+  #   file_sd_configs:
+  #     - files:
+  #         - file_sd_configs/kafka.json
+
+  - job_name: blackbox
+    file_sd_configs:
+      - files:
+          - file_sd_configs/blackbox.json
+
+  # - job_name: haproxy
+  #   file_sd_configs:
+  #     - files:
+  #         - file_sd_configs/haproxy.json
+
+  - job_name: node
+    file_sd_configs:
+      - files:
+          - file_sd_configs/node.json
+
+  # - job_name: cadvisor
+  #   file_sd_configs:
+  #     - files:
+  #         - file_sd_configs/cadvisor.json
+
+  # - job_name: etcd
+  #   file_sd_configs:
+  #     - files:
+  #         - file_sd_configs/etcd.json
+
+  # - job_name: java
+  #   file_sd_configs:
+  #     - files:
+  #         - file_sd_configs/java.json
+
+  # - job_name: postgres
+  #   file_sd_configs:
+  #     - files:
+  #         - file_sd_configs/postgres.json
+
+  - job_name: http_body_match_origin
+    metrics_path: /probe
+    params:
+      module: [http_body_match_origin]
+    file_sd_configs:
+      - files:
+          - file_sd_configs/http_2xx.json
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 68.169.111.164:9115
+
+  - job_name: icmp_test
+    metrics_path: /probe
+    params:
+      module: [icmp_test]
+    file_sd_configs:
+      - files:
+          - file_sd_configs/icmp_test.json
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 68.169.111.164:9115
+  # - job_name: snmp
+  #   metrics_path: /snmp
+  #   params:
+  #     module: [if_mib]
+  #   file_sd_configs:
+  #     - files:
+  #       - file_sd_configs/snmp.json
+  #   relabel_configs:
+  #     - source_labels: [__address__]
+  #       target_label: __param_target
+  #     - source_labels: [__param_target]
+  #       target_label: instance
+  #     - target_label: __address__
+  #       replacement: 10.69.0.200:9116

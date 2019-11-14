@@ -1,0 +1,67 @@
+groups:
+- name: Docker containers
+  rules:
+    - alert: CadvisorInstanceDown
+      expr: up{job="cadvisor"} == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Cadvisor down (instance {{ $labels.instance }})"
+        description: "Cadvisor unhealthy\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+    - alert: CadvisorMissing
+      expr: absent(up{job="cadvisor"})
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Cadvisor is missing (instance {{ $labels.instance }})"
+        description: "Cadvisor are unhealthy\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+    - alert: ContainerKilled
+      expr: time() - container_last_seen > 60
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Container killed (instance {{ $labels.instance }})"
+        description: "A container has disappeared\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+    - alert: ContainerCpuUsage
+      expr: (sum(rate(container_cpu_usage_seconds_total{image!=""}[3m])) by (name) * 100) > 80
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Container CPU usage (name {{ $labels.name }})"
+        description: "Container CPU usage is above 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+    - alert: ContainerCPUThrottling
+      expr: sum(rate(container_cpu_cfs_throttled_seconds_total[1h])) by (name) > .025
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Container CPU throttled (name {{ $labels.name }})"
+        description: "Container CPU throttled\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+    - alert: ContainerMemoryUsage
+      expr: (sum(container_memory_usage_bytes) by (instance) / sum(container_memory_max_usage_bytes) by (instance) * 100) > 80
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Container Memory usage (instance {{ $labels.instance }})"
+        description: "Container Memory usage is above 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+    - alert: ContainerVolumeUsage
+      expr: (1 - (sum(container_fs_inodes_free) BY (ip) / sum(container_fs_inodes_total) BY (ip)) * 100) > 80
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Container Volume usage (instance {{ $labels.instance }})"
+        description: "Container Volume usage is above 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+    - alert: ContainerVolumeIoUsage
+      expr: (sum(container_fs_io_current) BY (ip, name) * 100) > 80
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Container Volume IO usage (instance {{ $labels.instance }})"
+        description: "Container Volume IO usage is above 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
