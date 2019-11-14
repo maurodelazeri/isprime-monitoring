@@ -1,5 +1,21 @@
-[
+[{
+    "targets": [
+      "68.169.111.162:9100"
+    ],
+    "labels": {
+      "cid": "99999",
+      "name": "isprime",
+      "level": "elite",
+      "type": "internal"
+    }
+  },
   {
-    "targets": ["68.169.111.162:9100"]
+    "targets": ["lt-web1.isprime.com:9100", "lt-web2.isprime.com:9100", "lt-web3.isprime.com:9100", "lt-web4.isprime.com:9100"],
+    "labels": {
+      "cid": "11191",
+      "name": "littlethings",
+      "level": "elite",
+      "type": "managed"
+    }
   }
 ]
