@@ -1,6 +1,6 @@
 [{
   "targets": [
-    "www.unicardtech.ru"
+    "http://www.unicardtech.ru"
   ],
   "labels": {
     "cid": "7852",

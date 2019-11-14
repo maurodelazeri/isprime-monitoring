@@ -1,6 +1,6 @@
 [{
   "targets": [
-    "www.isprime.com"
+    "https://www.isprime.com"
   ],
   "labels": {
     "cid": "99999",
